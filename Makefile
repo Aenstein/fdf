@@ -18,7 +18,9 @@ SRC = main.c\
 	read_file.c\
 	utils.c\
 	utils2.c\
-	utils3.c
+	utils3.c\
+	ft_atoi_base.c\
+	color.c
 
 OBJ = $(addprefix $(OBJDIR),$(SRC:.c=.o))
 

@@ -64,4 +64,5 @@ void	fdf_init(t_fdf *data)
 			((HEIGHT / data->height)) / 2.5);
 	if (data->zoom == 0)
 		data->zoom = 1;
+	z_heigt(data);
 }

@@ -22,6 +22,11 @@
 # define TEXT			0xFAEBD7
 # define MENU_BACK		0x090909
 # define BACK			0x0f0f0f
+# define ORANGERED		0xFF4500
+# define DARKORANGE		0xFF8C00
+# define ORANGE			0xFFA500
+# define GOLD			0xFFD700
+# define YELLOW			0xFFFF00
 # define MOVE			"Move: WASD or mouse left button"
 # define BELOW			"Height of projection: below Q"
 # define HEIGHTER		"Height of projection: highter E"
@@ -35,12 +40,6 @@ typedef enum
 	true
 }	t_bool;
 
-/*typedef struct	s_z
-{
-	float z;
-	float z1;
-}				t_z;*/
-
 typedef struct	s_step
 {
 	float	x_step;
@@ -52,6 +51,7 @@ typedef struct	s_point
 	float	x;
 	float	y;
 	float	z;
+	int		color;
 }				t_point;
 
 typedef struct	s_mouse
@@ -70,6 +70,8 @@ typedef struct	s_fdf
 	int		zoom;
 	int		color;
 	int		**z_coord;
+	int		max_z;
+	int		min_z;
 	int		shift_x;
 	int		shift_y;
 	int		projection;
@@ -111,5 +113,15 @@ void			print_menu(t_fdf *data);
 void			check_file(char *file_name, t_fdf *data);
 void			pixel_put(t_fdf *data, int x, int y, int color);
 void			draw_background(t_fdf *data);
+int				ft_isdigit_base(char c, int base);
+t_bool			ft_has_prefix(const char *str, int base);
+t_bool			ft_isnumber(char *str, int base);
+int				ft_atoi_base(const char *str, int base);
+int				ft_isspace(int c);
+int				get_color(t_point cur, t_point start, t_point end, t_step step);
+int				get_light(int start, int end, float percentage);
+int				get_default_color(int z, t_fdf *data);
+float			percent(int start, int end, int current);
+void			z_heigt(t_fdf *data);
 
 #endif

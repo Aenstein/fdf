@@ -65,6 +65,7 @@ void	parallel(float *x, float *y, float z, t_fdf *data)
 void	connect(t_point start, t_point end, t_fdf *data)
 {
 	t_step	step;
+	t_point cur;
 
 	data->color = color(data, start.z, end.z);
 	if (data->projection == 1)
@@ -80,11 +81,12 @@ void	connect(t_point start, t_point end, t_fdf *data)
 	shiftstart(&start.x, &end.x, data->shift_x);
 	shiftstart(&start.y, &end.y, data->shift_y);
 	steps(&step.x_step, &step.y_step, start, end);
-	while ((int)(start.x - end.x) || (int)(start.y - end.y))
+	cur = start;
+	while ((int)(cur.x - end.x) || (int)(cur.y - end.y))
 	{
-		pixel_put(data, (int)start.x, (int)start.y, data->color);
-		start.x += step.x_step;
-		start.y += step.y_step;
+		pixel_put(data, (int)cur.x, (int)cur.y, get_color(cur, start, end, step));
+		cur.x += step.x_step;
+		cur.y += step.y_step;
 	}
 }
 
