@@ -18,7 +18,10 @@
 
 # define HEIGHT			1400
 # define WIDTH			2560
+# define MENU_WIDTH		350
 # define TEXT			0xFAEBD7
+# define MENU_BACK		0x090909
+# define BACK			0x0f0f0f
 # define MOVE			"Move: WASD or mouse left button"
 # define BELOW			"Height of projection: below Q"
 # define HEIGHTER		"Height of projection: highter E"
@@ -32,11 +35,11 @@ typedef enum
 	true
 }	t_bool;
 
-typedef struct	s_z
+/*typedef struct	s_z
 {
 	float z;
 	float z1;
-}				t_z;
+}				t_z;*/
 
 typedef struct	s_step
 {
@@ -48,6 +51,7 @@ typedef struct	s_point
 {
 	float	x;
 	float	y;
+	float	z;
 }				t_point;
 
 typedef struct	s_mouse
@@ -71,10 +75,14 @@ typedef struct	s_fdf
 	int		projection;
 	int		z_projection;
 	int		color_num;
-	float		z_height;
+	char	*data_addr;
+	int		bits_per_pixel;
+	int		size_line;
+	int		endian;
 	t_mouse	*mouse;
 	void	*mlx_ptr;
 	void	*win_ptr;
+	void	*img;
 }				t_fdf;
 
 void			read_file(char *file_name, t_fdf *data);
@@ -94,14 +102,14 @@ void			shif(int key, t_fdf *data);
 void			zoom(int key, t_fdf *data);
 void			fdf_init(t_fdf *data);
 int				color(t_fdf *data, float z, float z1);
-t_point			create_point(float x, float y);
+t_point			create_point(float x, float y, t_fdf *data);
 void			error_write(char *s);
 void			zoomstart(float *x, float *y, t_fdf *data);
 void			shiftstart(float *x, float *y, float shift);
 void			steps(float *x_step, float *y_step, t_point start, t_point end);
 void			print_menu(t_fdf *data);
-void			take_z(t_z *z_coords, t_point start, t_point end, t_fdf *data);
-int				z_heigt(t_fdf *data);
 void			check_file(char *file_name, t_fdf *data);
+void			pixel_put(t_fdf *data, int x, int y, int color);
+void			draw_background(t_fdf *data);
 
 #endif

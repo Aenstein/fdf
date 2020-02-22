@@ -27,38 +27,6 @@ void	steps(float *x_step, float *y_step, t_point start, t_point end)
 	*y_step /= max;
 }
 
-void	take_z(t_z *z_coords, t_point start, t_point end, t_fdf *data)
-{
-	z_coords->z = data->z_coord[(int)start.y][(int)start.x];
-	z_coords->z1 = data->z_coord[(int)end.y][(int)end.x];
-}
-
-int		z_heigt(t_fdf *data)
-{
-	int		x;
-	int		y;
-	int		max_z;
-	int		min_z;
-
-	y = 0;
-	max_z = data->z_coord[0][0];
-	min_z = data->z_coord[0][0];
-	while (y < data->height)
-	{
-		x = 0;
-		while (x < data->width)
-		{
-			if (max_z < data->z_coord[y][x])
-				max_z = data->z_coord[y][x];
-			if (min_z > data->z_coord[y][x])
-				min_z = data->z_coord[y][x];
-			x++;
-		}
-		y++;
-	}
-	return (max_z - min_z);
-}
-
 void	check_file(char *file_name, t_fdf *data)
 {
 	int		fd;
@@ -68,7 +36,7 @@ void	check_file(char *file_name, t_fdf *data)
 	fd = open(file_name, O_RDONLY, 0);
 	while (get_next_line(fd, &line))
 	{
-		if ((width_line = ft_wdcounter(line, ' ') != data->width))
+		if ((width_line = ft_wdcounter(line, ' ') < data->width))
 		{
 			close(fd);
 			error_write(ERR_MAP);

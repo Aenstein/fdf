@@ -12,6 +12,34 @@
 
 #include "fdf.h"
 
+void	pixel_put(t_fdf *data, int x, int y, int color)
+{
+	int i;
+
+	if (x >= MENU_WIDTH && x < WIDTH && y >=0 && y < HEIGHT)
+	{
+		i = (x * data->bits_per_pixel / 8) + (y * data->size_line); 
+		data->data_addr[i] = color;
+		data->data_addr[++i] = color >> 8;
+		data->data_addr[++i] = color >> 16;
+	}
+}
+
+void	draw_background(t_fdf *data)
+{
+	int	*image;
+	int	i;
+
+	ft_bzero(data->data_addr, WIDTH * HEIGHT * (data->bits_per_pixel / 8));
+	image = (int *)(data->data_addr);
+	i = 0;
+	while (i < HEIGHT * WIDTH)
+	{
+		image[i] = (i % WIDTH < MENU_WIDTH) ? MENU_BACK : BACK;
+		i++;
+	}
+}
+
 void	iso(float *x, float *y, float z, t_fdf *data)
 {
 	int		p_x;
@@ -37,18 +65,16 @@ void	parallel(float *x, float *y, float z, t_fdf *data)
 void	connect(t_point start, t_point end, t_fdf *data)
 {
 	t_step	step;
-	t_z		z_coords;
 
-	take_z(&z_coords, start, end, data);
-	data->color = color(data, z_coords.z, z_coords.z1);
+	data->color = color(data, start.z, end.z);
 	if (data->projection == 1)
-		iso(&start.x, &start.y, z_coords.z, data);
+		iso(&start.x, &start.y, start.z, data);
 	else
-		parallel(&start.x, &start.y, z_coords.z, data);
+		parallel(&start.x, &start.y, start.z, data);
 	if (data->projection == 1)
-		iso(&end.x, &end.y, z_coords.z1, data);
+		iso(&end.x, &end.y, end.z, data);
 	else
-		parallel(&end.x, &end.y, z_coords.z1, data);
+		parallel(&end.x, &end.y, end.z, data);
 	zoomstart(&start.x, &start.y, data);
 	zoomstart(&end.x, &end.y, data);
 	shiftstart(&start.x, &end.x, data->shift_x);
@@ -56,8 +82,7 @@ void	connect(t_point start, t_point end, t_fdf *data)
 	steps(&step.x_step, &step.y_step, start, end);
 	while ((int)(start.x - end.x) || (int)(start.y - end.y))
 	{
-		mlx_pixel_put(data->mlx_ptr, data->win_ptr, (int)start.x,
-				(int)start.y, data->color);
+		pixel_put(data, (int)start.x, (int)start.y, data->color);
 		start.x += step.x_step;
 		start.y += step.y_step;
 	}
@@ -68,6 +93,7 @@ void	draw_map(t_fdf *data)
 	int		x;
 	int		y;
 
+	draw_background(data);
 	y = 0;
 	while (y < data->height)
 	{
@@ -75,12 +101,15 @@ void	draw_map(t_fdf *data)
 		while (x < data->width)
 		{
 			if (x < data->width - 1)
-				connect(create_point(x, y), create_point(x + 1, y), data);
+				connect(create_point(x, y, data), create_point(x + 1, y, data),
+					data);
 			if (y < data->height - 1)
-				connect(create_point(x, y), create_point(x, y + 1), data);
+				connect(create_point(x, y, data), create_point(x, y + 1, data),
+					data);
 			x++;
 		}
 		y++;
 	}
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img, 0, 0);
 	print_menu(data);
 }

@@ -70,13 +70,13 @@ int		mouse_move(int x, int y, t_fdf *data)
 	if (data->mouse->is_pressed == 1)
 	{
 		if (data->mouse->x > data->mouse->previous_x)
-			data->shift_x += 5;
+			data->shift_x += 7;
 		if (data->mouse->x < data->mouse->previous_x)
-			data->shift_x -= 5;
+			data->shift_x -= 7;
 		if (data->mouse->y > data->mouse->previous_y)
-			data->shift_y += 4;
+			data->shift_y += 6;
 		if (data->mouse->y < data->mouse->previous_y)
-			data->shift_y -= 4;
+			data->shift_y -= 6;
 		mlx_clear_window(data->mlx_ptr, data->win_ptr);
 		draw_map(data);
 	}

@@ -12,12 +12,13 @@
 
 #include "fdf.h"
 
-t_point	create_point(float x, float y)
+t_point	create_point(float x, float y, t_fdf *data)
 {
 	t_point point;
 
 	point.x = x;
 	point.y = y;
+	point.z = data->z_coord[(int)y][(int)x];
 	return (point);
 }
 

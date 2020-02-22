@@ -39,7 +39,7 @@ void	init(t_fdf *data, t_mouse *mouse)
 	data->projection = 0;
 	data->z_projection = 0;
 	data->color_num = 0;
-	data->z_height = 0;
+	data->data_addr = NULL;
 	mouse->is_pressed = false;
 	mouse->x = 0;
 	mouse->y = 0;
@@ -52,13 +52,16 @@ void	fdf_init(t_fdf *data)
 {
 	data->mlx_ptr = mlx_init();
 	data->win_ptr = mlx_new_window(data->mlx_ptr, WIDTH, HEIGHT, "FDF");
-	data->z_height = z_heigt(data);
+	data->img = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
+	data->data_addr = mlx_get_data_addr(data->img, &(data->bits_per_pixel),
+		&(data->size_line), &(data->endian));
 	data->shift_x = WIDTH / 2.5;
 	data->shift_y = HEIGHT / 2.5;
 	data->projection = 1;
 	data->color_num = 1;
 	data->z_projection = 1;
-	data->zoom = min(((WIDTH / data->width) / 2.5), ((HEIGHT / data->height)) / 2.5);
+	data->zoom = min((((WIDTH - MENU_WIDTH) / data->width) / 2.5),
+			((HEIGHT / data->height)) / 2.5);
 	if (data->zoom == 0)
 		data->zoom = 1;
 }
