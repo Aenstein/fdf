@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aenstein <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bshaland <bshaland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/28 17:09:13 by aenstein          #+#    #+#             */
-/*   Updated: 2020/02/17 22:30:26 by aenstein         ###   ########.fr       */
+/*   Updated: 2020/02/23 16:50:24 by bshaland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "../libft/libft.h"
 # include "../minilibx_macos/mlx.h"
 # include <math.h>
+# include <stdio.h>
 
 # define HEIGHT			1400
 # define WIDTH			2560
@@ -54,6 +55,15 @@ typedef struct	s_point
 	int		color;
 }				t_point;
 
+typedef struct	s_rot
+{
+	double	x_rot;
+	double	y_rot;
+	double	z_rot;
+	int		projection;
+	int		z_projection;
+}				t_rot;
+
 typedef struct	s_mouse
 {
 	char	is_pressed;
@@ -74,8 +84,6 @@ typedef struct	s_fdf
 	int		min_z;
 	int		shift_x;
 	int		shift_y;
-	int		projection;
-	int		z_projection;
 	int		color_num;
 	char	*data_addr;
 	int		bits_per_pixel;
@@ -85,6 +93,7 @@ typedef struct	s_fdf
 	void	*mlx_ptr;
 	void	*win_ptr;
 	void	*img;
+	t_rot	*rotation;
 }				t_fdf;
 
 void			read_file(char *file_name, t_fdf *data);
@@ -99,7 +108,7 @@ void			parallel(float *x, float *y, float z, t_fdf *data);
 float			maxf(float a, float b);
 float			mod(float a);
 float			min(float a, float b);
-void			init(t_fdf *data, t_mouse *mouse);
+void			init(t_fdf *data, t_mouse *mouse, t_rot *rotation);
 void			shif(int key, t_fdf *data);
 void			zoom(int key, t_fdf *data);
 void			fdf_init(t_fdf *data);
@@ -123,5 +132,10 @@ int				get_light(int start, int end, float percentage);
 int				get_default_color(int z, t_fdf *data);
 float			percent(int start, int end, int current);
 void			z_heigt(t_fdf *data);
+void			rotate_x(float *y, float *z, double alpha);
+void			rotate_y(float *x, float *z, double beta);
+void			rotate_z(float *x, float *y, double gamma);
+t_point			project(t_point p, t_fdf *fdf);
+void			rotate(int key, t_fdf *data);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aenstein <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bshaland <bshaland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 19:49:58 by aenstein          #+#    #+#             */
-/*   Updated: 2020/02/17 23:09:10 by aenstein         ###   ########.fr       */
+/*   Updated: 2020/02/23 20:29:20 by bshaland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,25 @@ void	steps(float *x_step, float *y_step, t_point start, t_point end)
 
 void	z_heigt(t_fdf *data)
 {
-	int     x;
-	int     y;
+	int		x;
+	int		y;
 
 	y = 0;
 	data->max_z = data->z_coord[0][0];
 	data->min_z = data->z_coord[0][0];
- 		while (y < data->height)
+	while (y < data->height)
+	{
+		x = 0;
+		while (x < data->width)
 		{
-			x = 0;
-			while (x < data->width)
-			{
-				if (data->max_z < data->z_coord[y][x])
-					data->max_z = data->z_coord[y][x];
-				if (data->min_z > data->z_coord[y][x])
-					data->min_z = data->z_coord[y][x];
-					x++;
-			}
-			y++;
+			if (data->max_z < data->z_coord[y][x])
+				data->max_z = data->z_coord[y][x];
+			if (data->min_z > data->z_coord[y][x])
+				data->min_z = data->z_coord[y][x];
+			x++;
 		}
+		y++;
+	}
 }
 
 void	check_file(char *file_name, t_fdf *data)
