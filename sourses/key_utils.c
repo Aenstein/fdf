@@ -6,7 +6,7 @@
 /*   By: bshaland <bshaland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 18:02:12 by aenstein          #+#    #+#             */
-/*   Updated: 2020/02/23 20:37:52 by bshaland         ###   ########.fr       */
+/*   Updated: 2020/02/23 20:51:53 by bshaland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	rotate(int key, t_fdf *data)
 		data->rotation->projection = 1;
 	else if (key == 29)
 		data->rotation->projection = 2;
-	else if (key == 25 || key == 29)
+	if (key == 25 || key == 29)
 	{
 		data->rotation->x_rot = 0;
 		data->rotation->y_rot = 0;
