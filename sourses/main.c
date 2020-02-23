@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aenstein <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bshaland <bshaland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/28 17:08:33 by aenstein          #+#    #+#             */
-/*   Updated: 2020/02/17 22:36:12 by aenstein         ###   ########.fr       */
+/*   Updated: 2020/02/23 16:06:47 by bshaland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@ int		key_press(int key, t_fdf *data)
 		shif(key, data);
 	if (key == 69 || key == 78)
 		zoom(key, data);
-	if (key == 25)
-		data->projection = 1;
-	if (key == 29)
-		data->projection = 2;
+	if (key == 25 || key == 29 || key == 86 || key == 83 || key == 84 || key \
+	== 85 || key == 88 || key == 89 || key == 91 || key == 92)
+		rotate(key, data);
 	if (key == 18)
 		data->color_num = 1;
 	if (key == 19)
@@ -29,9 +28,9 @@ int		key_press(int key, t_fdf *data)
 	if (key == 20)
 		data->color_num = 3;
 	if (key == 12)
-		data->z_projection += 1;
-	if (key == 14 && (data->z_projection - 1) != 0)
-		data->z_projection -= 1;
+		data->rotation->z_projection += 1;
+	if (key == 14 && (data->rotation->z_projection - 1) != 0)
+		data->rotation->z_projection -= 1;
 	if (key == 53)
 		exit(0);
 	mlx_clear_window(data->mlx_ptr, data->win_ptr);
@@ -87,10 +86,11 @@ int		main(int ac, char **av)
 {
 	t_fdf	data[1];
 	t_mouse	mouse[1];
+	t_rot	rotate[1];
 
 	if (ac == 2)
 	{
-		init(data, mouse);
+		init(data, mouse, rotate);
 		read_file(av[1], data);
 		fdf_init(data);
 		mlx_hook(data->win_ptr, 2, 0, key_press, data);

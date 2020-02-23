@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aenstein <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bshaland <bshaland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 22:33:49 by aenstein          #+#    #+#             */
-/*   Updated: 2020/02/22 22:33:51 by aenstein         ###   ########.fr       */
+/*   Updated: 2020/02/23 20:38:59 by bshaland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	get_default_color(int z, t_fdf *data)
 {
-    float	percentage;
+	float	percentage;
 
 	percentage = percent(data->min_z, data->max_z, z);
 	if (percentage < 0.2)

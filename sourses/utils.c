@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aenstein <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bshaland <bshaland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 21:05:48 by aenstein          #+#    #+#             */
-/*   Updated: 2020/02/17 23:03:34 by aenstein         ###   ########.fr       */
+/*   Updated: 2020/02/23 18:39:53 by bshaland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ float	min(float a, float b)
 	return (a < b ? a : b);
 }
 
-void	init(t_fdf *data, t_mouse *mouse)
+void	init(t_fdf *data, t_mouse *mouse, t_rot *rotation)
 {
 	data->width = 0;
 	data->height = 0;
@@ -36,8 +36,11 @@ void	init(t_fdf *data, t_mouse *mouse)
 	data->z_coord = NULL;
 	data->shift_x = 0;
 	data->shift_y = 0;
-	data->projection = 0;
-	data->z_projection = 0;
+	rotation->x_rot = 0;
+	rotation->y_rot = 0;
+	rotation->z_rot = 0;
+	rotation->projection = 1;
+	rotation->z_projection = 0;
 	data->color_num = 0;
 	data->data_addr = NULL;
 	mouse->is_pressed = false;
@@ -46,6 +49,7 @@ void	init(t_fdf *data, t_mouse *mouse)
 	mouse->previous_x = 0;
 	mouse->previous_y = 0;
 	data->mouse = mouse;
+	data->rotation = rotation;
 }
 
 void	fdf_init(t_fdf *data)
@@ -55,11 +59,11 @@ void	fdf_init(t_fdf *data)
 	data->img = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
 	data->data_addr = mlx_get_data_addr(data->img, &(data->bits_per_pixel),
 		&(data->size_line), &(data->endian));
-	data->shift_x = WIDTH / 2.5;
-	data->shift_y = HEIGHT / 2.5;
-	data->projection = 1;
+	data->shift_x = WIDTH / 2;
+	data->shift_y = HEIGHT / 1.5;
+	data->rotation->projection = 1;
 	data->color_num = 1;
-	data->z_projection = 1;
+	data->rotation->z_projection = 1;
 	data->zoom = min((((WIDTH - MENU_WIDTH) / data->width) / 2.5),
 			((HEIGHT / data->height)) / 2.5);
 	if (data->zoom == 0)
