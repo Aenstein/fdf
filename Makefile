@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aenstein <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: bshaland <bshaland@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/18 19:45:27 by aenstein          #+#    #+#              #
-#    Updated: 2020/02/18 19:45:29 by aenstein         ###   ########.fr        #
+#    Updated: 2020/02/23 01:22:57 by bshaland         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ SRC = main.c\
 	utils2.c\
 	utils3.c\
 	ft_atoi_base.c\
-	color.c
+	color.c\
+	projection.c
 
 OBJ = $(addprefix $(OBJDIR),$(SRC:.c=.o))
 

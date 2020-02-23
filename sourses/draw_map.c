@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aenstein <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bshaland <bshaland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 16:42:58 by aenstein          #+#    #+#             */
-/*   Updated: 2020/02/17 22:54:15 by aenstein         ###   ########.fr       */
+/*   Updated: 2020/02/23 17:07:57 by bshaland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,46 +40,17 @@ void	draw_background(t_fdf *data)
 	}
 }
 
-void	iso(float *x, float *y, float z, t_fdf *data)
-{
-	int		p_x;
-	int		p_y;
-
-	p_x = *x;
-	p_y = *y;
-	*x = (p_x - p_y) * cos(0.523599);
-	*y = (p_x + p_y) * sin(0.523599) - z / mod(data->z_projection);
-}
-
-void	parallel(float *x, float *y, float z, t_fdf *data)
-{
-	int		p_x;
-	int		p_y;
-
-	p_x = *x;
-	p_y = *y;
-	*x = p_x - z / mod(data->z_projection);
-	*y = p_y - z / mod(data->z_projection);
-}
-
 void	connect(t_point start, t_point end, t_fdf *data)
 {
 	t_step	step;
 	t_point cur;
 
 	data->color = color(data, start.z, end.z);
-	if (data->projection == 1)
-		iso(&start.x, &start.y, start.z, data);
-	else
-		parallel(&start.x, &start.y, start.z, data);
-	if (data->projection == 1)
-		iso(&end.x, &end.y, end.z, data);
-	else
-		parallel(&end.x, &end.y, end.z, data);
 	zoomstart(&start.x, &start.y, data);
 	zoomstart(&end.x, &end.y, data);
 	shiftstart(&start.x, &end.x, data->shift_x);
 	shiftstart(&start.y, &end.y, data->shift_y);
+	printf("%f\n", start.x);
 	steps(&step.x_step, &step.y_step, start, end);
 	cur = start;
 	while ((int)(cur.x - end.x) || (int)(cur.y - end.y))
