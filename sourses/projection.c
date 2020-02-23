@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   projection.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bshaland <bshaland@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aenstein <aenstein@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/23 01:24:13 by bshaland          #+#    #+#             */
-/*   Updated: 2020/02/23 21:14:24 by bshaland         ###   ########.fr       */
+/*   Updated: 2020/02/23 21:41:55 by aenstein         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@ void	iso(float *x, float *y, float z, t_fdf *data)
 
 	p_x = *x;
 	p_y = *y;
-			data->rotation->x_rot = 0;
-		data->rotation->y_rot = 0;
-		data->rotation->z_rot = 0;
 	*x = (p_x - p_y) * cos(0.523599);
 	*y = (p_x + p_y) * sin(0.523599) - z / mod(data->rotation->z_projection);
 }
