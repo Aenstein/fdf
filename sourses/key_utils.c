@@ -6,7 +6,7 @@
 /*   By: bshaland <bshaland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 18:02:12 by aenstein          #+#    #+#             */
-/*   Updated: 2020/02/23 16:28:54 by bshaland         ###   ########.fr       */
+/*   Updated: 2020/02/23 19:09:43 by bshaland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	zoom(int key, t_fdf *data)
 
 void	rotate(int key, t_fdf *data)
 {
-	//data->rotation->projection = 3;
 	if (key == 84)
 		data->rotation->x_rot += 0.05;
 	else if (key == 91)
@@ -48,7 +47,13 @@ void	rotate(int key, t_fdf *data)
 	else if (key == 89 || key == 92)
 		data->rotation->z_rot -= 0.05;
 	else if (key == 25)
-		data->rotation->projection = 1;
+		{data->rotation->projection = 1;
+		data->rotation->x_rot = 0;
+		data->rotation->y_rot = 0;
+		data->rotation->z_rot = 0;}
 	else if (key == 29)
-		data->rotation->projection = 2;
+		{data->rotation->projection = 2;
+		data->rotation->x_rot = 0;
+		data->rotation->y_rot = 0;
+		data->rotation->z_rot = 0;}
 }

@@ -6,7 +6,7 @@
 /*   By: bshaland <bshaland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 16:42:58 by aenstein          #+#    #+#             */
-/*   Updated: 2020/02/23 17:07:57 by bshaland         ###   ########.fr       */
+/*   Updated: 2020/02/23 18:43:11 by bshaland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,10 @@ void	connect(t_point start, t_point end, t_fdf *data)
 	t_point cur;
 
 	data->color = color(data, start.z, end.z);
-	zoomstart(&start.x, &start.y, data);
-	zoomstart(&end.x, &end.y, data);
+	//zoomstart(&start.x, &start.y, data);
+	//zoomstart(&end.x, &end.y, data);
 	shiftstart(&start.x, &end.x, data->shift_x);
 	shiftstart(&start.y, &end.y, data->shift_y);
-	printf("%f\n", start.x);
 	steps(&step.x_step, &step.y_step, start, end);
 	cur = start;
 	while ((int)(cur.x - end.x) || (int)(cur.y - end.y))

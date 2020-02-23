@@ -6,7 +6,7 @@
 /*   By: bshaland <bshaland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/23 01:24:13 by bshaland          #+#    #+#             */
-/*   Updated: 2020/02/23 17:08:07 by bshaland         ###   ########.fr       */
+/*   Updated: 2020/02/23 19:10:33 by bshaland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,13 @@ void	parallel(float *x, float *y, float z, t_fdf *data)
 	int		p_x;
 	int		p_y;
 
-	p_x = *x;
-	p_y = *y;
-	*x = p_x - z / mod(data->rotation->z_projection);
-	*y = p_y - z / mod(data->rotation->z_projection);
+	if (z || data)
+	{
+		p_x = *x;
+		p_y = *y;
+		*x = p_x - (z / 20) / mod(data->rotation->z_projection);
+		*y = p_y - (z / 20) / mod(data->rotation->z_projection);
+	}
 }
 
 void	rotate_x(float *y, float *z, double x_rot)
@@ -69,20 +72,16 @@ t_point	project(t_point p, t_fdf *fdf)
 {
 	p.x *= fdf->zoom;
 	p.y *= fdf->zoom;
-	//p.z *= fdf->zoom / fdf->rotation->z_projection;
-	//p.x -= (fdf->width * fdf->zoom) / 2;
-	//p.y -= (fdf->height * fdf->zoom) / 2;
-	//rotate_x(&p.y, &p.z, fdf->rotation->x_rot);
-	//rotate_y(&p.x, &p.z, fdf->rotation->y_rot);
-	//rotate_z(&p.x, &p.y, fdf->rotation->z_rot);
+	p.z *= fdf->zoom / fdf->rotation->z_projection;
+	p.x -= (fdf->width * fdf->zoom) / 2;
+	p.y -= (fdf->height * fdf->zoom) / 2;
+	rotate_x(&p.y, &p.z, fdf->rotation->x_rot);
+	rotate_y(&p.x, &p.z, fdf->rotation->y_rot);
+	rotate_z(&p.x, &p.y, fdf->rotation->z_rot);
 	if (fdf->rotation->projection == 1)
 		iso(&p.x, &p.y, p.z, fdf);
 	else if (fdf->rotation->projection == 2)
 		parallel(&p.x, &p.y, p.z, fdf);
-	
-	//p.x += (WIDTH - MENU_WIDTH) / 2 + fdf->shift_x + MENU_WIDTH;
-	//p.y += (HEIGHT + fdf->height * fdf->zoom) / 2
-	//											+ fdf->shift_y;
 
 	return (p);
 }

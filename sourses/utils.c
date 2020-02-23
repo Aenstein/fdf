@@ -6,7 +6,7 @@
 /*   By: bshaland <bshaland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 21:05:48 by aenstein          #+#    #+#             */
-/*   Updated: 2020/02/23 16:21:20 by bshaland         ###   ########.fr       */
+/*   Updated: 2020/02/23 18:39:53 by bshaland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void	fdf_init(t_fdf *data)
 	data->img = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
 	data->data_addr = mlx_get_data_addr(data->img, &(data->bits_per_pixel),
 		&(data->size_line), &(data->endian));
-	data->shift_x = WIDTH / 2.5;
-	data->shift_y = HEIGHT / 2.5;
+	data->shift_x = WIDTH / 2;
+	data->shift_y = HEIGHT / 1.5;
 	data->rotation->projection = 1;
 	data->color_num = 1;
 	data->rotation->z_projection = 1;
