@@ -6,7 +6,7 @@
 /*   By: bshaland <bshaland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 18:35:03 by aenstein          #+#    #+#             */
-/*   Updated: 2020/02/23 18:45:40 by bshaland         ###   ########.fr       */
+/*   Updated: 2020/02/23 20:29:33 by bshaland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ t_point	create_point(float x, float y, t_fdf *data)
 	point.z = data->z_coord[(int)y][(int)x];
 	cur = project(point, data);
 	cur.color = get_default_color(point.z, data);
-	
 	return (cur);
 }
 

@@ -6,7 +6,7 @@
 /*   By: bshaland <bshaland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 16:42:58 by aenstein          #+#    #+#             */
-/*   Updated: 2020/02/23 18:43:11 by bshaland         ###   ########.fr       */
+/*   Updated: 2020/02/23 20:34:13 by bshaland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	pixel_put(t_fdf *data, int x, int y, int color)
 {
 	int i;
 
-	if (x >= MENU_WIDTH && x < WIDTH && y >=0 && y < HEIGHT)
+	if (x >= MENU_WIDTH && x < WIDTH && y >= 0 && y < HEIGHT)
 	{
-		i = (x * data->bits_per_pixel / 8) + (y * data->size_line); 
+		i = (x * data->bits_per_pixel / 8) + (y * data->size_line);
 		data->data_addr[i] = color;
 		data->data_addr[++i] = color >> 8;
 		data->data_addr[++i] = color >> 16;
@@ -46,15 +46,14 @@ void	connect(t_point start, t_point end, t_fdf *data)
 	t_point cur;
 
 	data->color = color(data, start.z, end.z);
-	//zoomstart(&start.x, &start.y, data);
-	//zoomstart(&end.x, &end.y, data);
 	shiftstart(&start.x, &end.x, data->shift_x);
 	shiftstart(&start.y, &end.y, data->shift_y);
 	steps(&step.x_step, &step.y_step, start, end);
 	cur = start;
 	while ((int)(cur.x - end.x) || (int)(cur.y - end.y))
 	{
-		pixel_put(data, (int)cur.x, (int)cur.y, get_color(cur, start, end, step));
+		pixel_put(data, (int)cur.x, (int)cur.y,
+		get_color(cur, start, end, step));
 		cur.x += step.x_step;
 		cur.y += step.y_step;
 	}

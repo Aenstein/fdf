@@ -6,13 +6,11 @@
 /*   By: bshaland <bshaland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/23 01:24:13 by bshaland          #+#    #+#             */
-/*   Updated: 2020/02/23 19:10:33 by bshaland         ###   ########.fr       */
+/*   Updated: 2020/02/23 20:30:36 by bshaland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include "math.h"
-
 
 void	iso(float *x, float *y, float z, t_fdf *data)
 {
@@ -23,20 +21,6 @@ void	iso(float *x, float *y, float z, t_fdf *data)
 	p_y = *y;
 	*x = (p_x - p_y) * cos(0.523599);
 	*y = (p_x + p_y) * sin(0.523599) - z / mod(data->rotation->z_projection);
-}
-
-void	parallel(float *x, float *y, float z, t_fdf *data)
-{
-	int		p_x;
-	int		p_y;
-
-	if (z || data)
-	{
-		p_x = *x;
-		p_y = *y;
-		*x = p_x - (z / 20) / mod(data->rotation->z_projection);
-		*y = p_y - (z / 20) / mod(data->rotation->z_projection);
-	}
 }
 
 void	rotate_x(float *y, float *z, double x_rot)
@@ -82,6 +66,5 @@ t_point	project(t_point p, t_fdf *fdf)
 		iso(&p.x, &p.y, p.z, fdf);
 	else if (fdf->rotation->projection == 2)
 		parallel(&p.x, &p.y, p.z, fdf);
-
 	return (p);
 }
