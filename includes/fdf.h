@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bshaland <bshaland@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aenstein <aenstein@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/28 17:09:13 by aenstein          #+#    #+#             */
-/*   Updated: 2020/02/23 16:50:24 by bshaland         ###   ########.fr       */
+/*   Updated: 2020/02/24 19:24:34 by aenstein         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ typedef struct	s_fdf
 }				t_fdf;
 
 void			read_file(char *file_name, t_fdf *data);
-void			matrix(int *z_coord, char *line);
+void			matrix(int *z_coord, char *line, t_fdf *data);
 int				get_height(char *file_name);
 int				get_width(char *file_name);
 int				ft_wdcounter(char const *str, char c);
@@ -137,5 +137,6 @@ void			rotate_y(float *x, float *z, double beta);
 void			rotate_z(float *x, float *y, double gamma);
 t_point			project(t_point p, t_fdf *fdf);
 void			rotate(int key, t_fdf *data);
+void			check_nums(char **nums, t_fdf *data);
 
 #endif

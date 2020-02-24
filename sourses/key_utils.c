@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bshaland <bshaland@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aenstein <aenstein@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 18:02:12 by aenstein          #+#    #+#             */
-/*   Updated: 2020/02/23 20:51:53 by bshaland         ###   ########.fr       */
+/*   Updated: 2020/02/24 19:51:14 by aenstein         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,26 @@ void	parallel(float *x, float *y, float z, t_fdf *data)
 	int		p_x;
 	int		p_y;
 
-	if (z || data)
+	p_x = *x;
+	p_y = *y;
+	*x = p_x - (z / 20) / mod(data->rotation->z_projection);
+	*y = p_y - (z / 20) / mod(data->rotation->z_projection);
+}
+
+void	check_nums(char **nums, t_fdf *data)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < data->width)
 	{
-		p_x = *x;
-		p_y = *y;
-		*x = p_x - (z / 20) / mod(data->rotation->z_projection);
-		*y = p_y - (z / 20) / mod(data->rotation->z_projection);
+		j = 0;
+		if (nums[i][j] == '-' || nums[i][j] == '+')
+			j++;
+		if (nums[i][j] > 47 && nums[i][j] < 58)
+			i++;
+		else
+			error_write(ERR_MAP);
 	}
 }

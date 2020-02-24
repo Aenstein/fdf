@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bshaland <bshaland@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aenstein <aenstein@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 19:49:58 by aenstein          #+#    #+#             */
-/*   Updated: 2020/02/23 22:57:40 by bshaland         ###   ########.fr       */
+/*   Updated: 2020/02/23 22:39:31 by aenstein         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,9 @@ void	print_menu(t_fdf *data)
 	mlx_string_put(mlx, win, 30, y += 30, TEXT, "ISO: 9");
 	mlx_string_put(mlx, win, 30, y += 30, TEXT, "Parallel: 0");
 	mlx_string_put(mlx, win, 30, y += 30, TEXT, "For rotate use numpad:");
-	mlx_string_put(mlx, win, 30, y += 30, TEXT, "Rotate x: numpad 2 / 8");
-	mlx_string_put(mlx, win, 30, y += 30, TEXT, "Rotate y: numpad 4 / 6");
-	mlx_string_put(mlx, win, 30, y += 30, TEXT, "Rotate z: numpad 1,3 / 7,9");
+	mlx_string_put(mlx, win, 30, y += 30, TEXT, "Rotate x: 2 / 8");
+	mlx_string_put(mlx, win, 30, y += 30, TEXT, "Rotate y: 4 / 6");
+	mlx_string_put(mlx, win, 30, y += 30, TEXT, "Rotate z: 1,3 / 7,9");
 }
 
 float	percent(int start, int end, int current)

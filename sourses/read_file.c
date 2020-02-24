@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aenstein <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aenstein <aenstein@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/28 18:12:32 by aenstein          #+#    #+#             */
-/*   Updated: 2020/02/17 22:59:20 by aenstein         ###   ########.fr       */
+/*   Updated: 2020/02/24 19:42:12 by aenstein         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		get_height(char *file_name)
 	return (height);
 }
 
-void	matrix(int *z_coord, char *line)
+void	matrix(int *z_coord, char *line, t_fdf *data)
 {
 	char	**nums;
 	int		i;
@@ -75,6 +75,7 @@ void	matrix(int *z_coord, char *line)
 	if (!(nums = ft_strsplit(line, ' ')))
 		error_write(ERR_MAP_READ);
 	i = 0;
+	check_nums(nums, data);
 	while (nums[i])
 	{
 		z_coord[i] = ft_atoi(nums[i]);
@@ -104,7 +105,7 @@ void	read_file(char *file_name, t_fdf *data)
 	i = 0;
 	while (get_next_line(fd, &line))
 	{
-		matrix(data->z_coord[i], line);
+		matrix(data->z_coord[i], line, data);
 		free(line);
 		i++;
 	}
